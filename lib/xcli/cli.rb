@@ -83,7 +83,7 @@ module Xcli
         status = self.class.post("/api/v1/tickets", :body => {:ticket => {:project_id => current_project["id"], :estimated_hours => options[:estimated_hours], :description => options[:message], :git_branch => current_branch_name, :name => options[:name]}, :auth_token => @token})
         table(:border => true) do
           row do
-            column('NAME', :width => 20)
+            column('NAME', :width => 30)
             column('ESTIMATED HOURS', :width => 20)
             column('HOURS WORKED', :width => 20)
             column('PERCENTAGE COMPLETE', :width => 20)
