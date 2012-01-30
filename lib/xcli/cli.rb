@@ -3,12 +3,14 @@ module Xcli
     include CommandLineReporter
     include HTTParty
 
-    def self.configuration
-      @configuration ||= Xcli::Configuration.new
-    end
+    no_tasks do
+      def self.configuration
+        @configuration ||= Xcli::Configuration.new
+      end
 
-    def configuration
-      self.class.configuration
+      def configuration
+        self.class.configuration
+      end
     end
 
     base_uri configuration.url
@@ -165,4 +167,3 @@ module Xcli
     end
   end
 end
-
