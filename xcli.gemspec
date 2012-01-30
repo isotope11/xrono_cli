@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.description = "Xrono Command Line Client"
   s.authors     = ["Adam Gamble", "Ben Holley"]
   s.email       = ['adamgamble@gmail.com','ben@isotope11.com']
-  s.files       = ["bin/xcli"]
+  s.files       = ["bin/xcli", "lib/xcli.rb", "lib/xcli/configuration.rb", "lib/xcli/cli.rb"]
   s.bindir      = "bin"
   s.executables = ['xcli']
   s.homepage    = 'http://rubygems.org/gems/example'
