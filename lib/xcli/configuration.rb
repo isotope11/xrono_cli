@@ -9,7 +9,7 @@ module Xcli
     private
 
     def load_config
-      config_file = File.expand_path(File.join(ENV["HOME"],'/.xronorc'))
+      config_file = File.expand_path '~/.xronorc'
       if File.exist? config_file
         @config = YAML.load_file config_file
       else
