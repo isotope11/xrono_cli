@@ -8,4 +8,3 @@ require 'grit'
 
 require 'xcli/configuration'
 require 'xcli/cli'
-

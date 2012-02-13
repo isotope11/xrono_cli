@@ -58,20 +58,7 @@ module Xcli
     desc 'ticket', 'show current ticket based on git repo and branch'
     def ticket
       report(:message => 'Loading current ticket...', :complete => '', :indent_size => 8) do
-        table(:border => true) do
-          row do
-            column('NAME', :width => 20)
-            column('ESTIMATED HOURS', :width => 20)
-            column('HOURS WORKED', :width => 20)
-            column('PERCENTAGE COMPLETE', :width => 20)
-          end
-          row do
-            column(current_ticket["name"])
-            column(current_ticket["estimated_hours"])
-            column(current_ticket["hours"])
-            column("#{current_ticket["percentage_complete"].to_s}%")
-          end
-        end
+        show_current_ticket
       end
     end
 
@@ -81,20 +68,7 @@ module Xcli
       report(:message => 'Creating new ticket...', :complete => '', :indent_size => 8) do
         require_login
         status = self.class.post("/api/v1/tickets", :body => {:ticket => {:project_id => current_project["id"], :estimated_hours => options[:estimated_hours], :description => options[:message], :git_branch => current_branch_name, :name => options[:name]}, :auth_token => @token})
-        table(:border => true) do
-          row do
-            column('NAME', :width => 30)
-            column('ESTIMATED HOURS', :width => 20)
-            column('HOURS WORKED', :width => 20)
-            column('PERCENTAGE COMPLETE', :width => 20)
-          end
-          row do
-            column(current_ticket["name"])
-            column(current_ticket["estimated_hours"])
-            column(current_ticket["hours"])
-            column("#{current_ticket["percentage_complete"].to_s}%")
-          end
-        end
+        show_current_ticket
       end
     end
 
@@ -164,6 +138,23 @@ module Xcli
       return @current_project if @current_project
       require_login
       @current_project = self.class.get("/api/v1/projects", :body => {:auth_token => @token, :git_repo_url => git_repo_url}).first
+    end
+
+    def show_current_ticket
+      table(:border => true) do
+        row do
+          column('NAME', :width => 30)
+          column('ESTIMATED HOURS', :width => 20)
+          column('HOURS WORKED', :width => 20)
+          column('PERCENTAGE COMPLETE', :width => 20)
+        end
+        row do
+          column(current_ticket["name"])
+          column(current_ticket["estimated_hours"])
+          column(current_ticket["hours"])
+          column("#{current_ticket["percentage_complete"].to_s}%")
+        end
+      end
     end
   end
 end
